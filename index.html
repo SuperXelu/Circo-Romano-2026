@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuesta de Colaboración - Circo Romano Máximo 2026</title>
+    
+    <!-- Google Fonts: Cinzel (Títulos Romanos), Lora (Cuerpo Serif) e Inter (UX auxiliar) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --rojo-senado: #7b1113;
+            --rojo-senado-hover: #9c1719;
+            --oro-romano: #c5a059;
+            --oro-brillante: #e5c178;
+            --oro-oscuro: #947233;
+            --texto-principal: #222222;
+            --texto-secundario: #555555;
+            --fondo-card: rgba(255, 255, 255, 0.94);
+            --sombra-card: 0 10px 30px rgba(0, 0, 0, 0.12);
+            --borde-dorado: 1px solid rgba(197, 160, 89, 0.4);
+            --radio-border: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            background: #110d0e url('roman_bg.png') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--texto-principal);
+            line-height: 1.6;
+            padding: 24px 12px;
+            min-height: 100vh;
+        }
+
+        /* Fix para scroll e imágenes de fondo en móviles */
+        @media (max-width: 768px) {
+            body {
+                background-attachment: scroll;
+                padding: 12px 8px;
+            }
+        }
+
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            background-color: rgba(253, 251, 247, 0.94);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 40px 36px;
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(197, 160, 89, 0.6);
+            position: relative;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 22px 14px;
+                border-radius: 12px;
+            }
+        }
+
+        /* Barra de progreso de lectura */
+        .progress-bar-container {
+            width: 100%;
+            height: 6px;
+            background: rgba(197, 160, 89, 0.2);
+            border-radius: 3px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--oro-romano), var(--rojo-senado));
+            transition: width 0.3s ease;
+        }
+
+        /* Cabecera */
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .header-emblem {
+            font-size: 2.2rem;
+            color: var(--oro-romano);
+            margin-bottom: 4px;
+            letter-spacing: 4px;
+        }
+
+        header h1 {
+            font-family: 'Cinzel', serif;
+            color: var(--rojo-senado);
+            font-size: clamp(1.8rem, 5vw, 2.7rem);
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 8px;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.9);
+            letter-spacing: 0.5px;
+        }
+
+        .subtitulo {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: #444;
+            font-style: italic;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .benefit-box {
+            background: linear-gradient(135deg, rgba(255, 252, 245, 0.95), rgba(250, 243, 224, 0.95));
+            border-left: 5px solid var(--oro-romano);
+            padding: 20px 22px;
+            margin: 20px auto 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            font-size: 1.02rem;
+            text-align: left;
+            border-top: 1px solid rgba(197, 160, 89, 0.3);
+            border-right: 1px solid rgba(197, 160, 89, 0.3);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+        }
+
+        .benefit-box strong {
+            color: var(--rojo-senado);
+            font-family: 'Cinzel', serif;
+            font-size: 1.08rem;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            margin-bottom: 4px;
+        }
+
+        /* Diseño de Formulario y Tarjetas */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .seccion-tarjeta {
+            background-color: var(--fondo-card);
+            padding: 30px;
+            border-radius: var(--radio-border);
+            box-shadow: var(--sombra-card);
+            border-top: 4px solid var(--rojo-senado);
+            border-left: var(--borde-dorado);
+            border-right: var(--borde-dorado);
+            border-bottom: var(--borde-dorado);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        @media (max-width: 600px) {
+            .seccion-tarjeta {
+                padding: 18px 14px;
+            }
+        }
+
+        .seccion-tarjeta:hover {
+            box-shadow: 0 14px 28px rgba(0,0,0,0.15);
+        }
+
+        .seccion-tarjeta h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--rojo-senado);
+            font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+            border-bottom: 2px solid var(--oro-romano);
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .seccion-subtitulo {
+            font-family: 'Cinzel', serif;
+            color: var(--rojo-senado);
+            font-size: 1.15rem;
+            margin-top: 26px;
+            margin-bottom: 12px;
+            padding-bottom: 4px;
+            border-bottom: 1px dashed rgba(197, 160, 89, 0.5);
+        }
+
+        .descripcion-seccion {
+            color: var(--texto-secundario);
+            margin-bottom: 20px;
+            font-size: 0.98rem;
+        }
+
+        /* Grid y Responsive Rows */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 18px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 650px) {
+            .form-row {
+                flex-direction: column;
+                gap: 14px;
+            }
+            .form-row .form-group {
+                margin-bottom: 0;
+            }
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        label .required {
+            color: var(--rojo-senado);
+            font-weight: bold;
+        }
+
+        /* Inputs estilizados */
+        input[type="text"], 
+        input[type="email"], 
+        input[type="tel"], 
+        input[type="number"] {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1.5px solid #d1c7b7;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            background-color: #faf9f6;
+            color: #222;
+            transition: all 0.25s ease;
+        }
+
+        input[type="text"]:focus, 
+        input[type="email"]:focus, 
+        input[type="tel"]:focus, 
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--oro-romano);
+            box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.25);
+            background-color: #ffffff;
+        }
+
+        /* Botones Radio Personalizados */
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .radio-option {
+            flex: 1;
+            min-width: 120px;
+            position: relative;
+        }
+
+        .radio-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .radio-custom {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 18px;
+            background-color: #f7f4ed;
+            border: 1.5px solid #d8cfbe;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: #444;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .radio-option input[type="radio"]:checked + .radio-custom {
+            background-color: var(--rojo-senado);
+            color: #ffffff;
+            border-color: var(--rojo-senado);
+            box-shadow: 0 4px 10px rgba(123, 17, 19, 0.25);
+        }
+
+        .radio-option input[type="radio"]:focus + .radio-custom {
+            outline: 2px solid var(--oro-romano);
+        }
+
+        /* Transición suave para el contenedor dinámico de escudos */
+        .collapsible-container {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1), margin-top 0.3s ease;
+            overflow: hidden;
+            margin-top: 0;
+        }
+
+        .collapsible-container.open {
+            grid-template-rows: 1fr;
+            margin-top: 14px;
+        }
+
+        .collapsible-content {
+            min-height: 0;
+        }
+
+        .collapsible-inner {
+            background-color: rgba(255, 249, 230, 0.9);
+            border-left: 4px solid var(--oro-romano);
+            border-radius: 0 8px 8px 0;
+            padding: 16px 18px;
+            border-top: 1px solid rgba(197, 160, 89, 0.3);
+            border-right: 1px solid rgba(197, 160, 89, 0.3);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+        }
+
+        /* Lista de Tareas */
+        ul.tasks {
+            background: #faf8f3;
+            padding: 18px 20px 18px 38px;
+            border-radius: 8px;
+            border: 1px dashed var(--oro-romano);
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        ul.tasks li {
+            margin-bottom: 8px;
+        }
+
+        ul.tasks li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Botón Enviar */
+        button[type="submit"] {
+            background: linear-gradient(135deg, var(--rojo-senado), #5c0a0c);
+            color: #ffffff;
+            border: 2px solid var(--oro-romano);
+            padding: 18px 30px;
+            font-size: clamp(1.05rem, 3vw, 1.25rem);
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            letter-spacing: 1.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 18px rgba(123, 17, 19, 0.35);
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        button[type="submit"]:hover {
+            background: linear-gradient(135deg, #94171a, var(--rojo-senado));
+            border-color: var(--oro-brillante);
+            box-shadow: 0 8px 25px rgba(123, 17, 19, 0.5);
+            transform: translateY(-2px);
+        }
+
+        button[type="submit"]:active {
+            transform: translateY(0);
+        }
+
+        /* Modal de confirmación de éxito */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: #fdfbf7;
+            max-width: 520px;
+            width: 100%;
+            border-radius: 16px;
+            padding: 35px 28px;
+            text-align: center;
+            border: 2px solid var(--oro-romano);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-icon {
+            font-size: 3.5rem;
+            margin-bottom: 12px;
+        }
+
+        .modal-title {
+            font-family: 'Cinzel', serif;
+            color: var(--rojo-senado);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .modal-text {
+            color: var(--texto-secundario);
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+        }
+
+        .btn-modal {
+            background-color: var(--rojo-senado);
+            color: #fff;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: 1px solid var(--oro-romano);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+
+        .btn-modal:hover {
+            background-color: var(--rojo-senado-hover);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Iframe oculto para evitar redirigir al usuario fuera de la web -->
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){showSuccessModal();}"></iframe>
+
+<div class="container">
+    <div class="progress-bar-container" title="Progreso del formulario">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <header>
+        <div class="header-emblem">🏛️ ⚔️ 🏛️</div>
+        <h1>Circo Romano Máximo</h1>
+        <div class="subtitulo">Encuesta de Colaboración - Senado Romano (2026)</div>
+        
+        <div class="benefit-box">
+            <strong>📜 Beneficio por colaboración:</strong> <br>
+            Participar en el acto supone en esta edición la posibilidad de disfrutar del Circo en los momentos en los que no se requiera intervención, siempre ubicados en el anillo inferior del estadio.
+        </div>
+    </header>
+
+    <!-- Envío apuntando a Google Forms mediante iframe oculto -->
+    <form action="https://docs.google.com/forms/d/e/1FAIpQLSfk4hRENIchHz4pGZrhSCxz7pTi0lGF8Xqb6IfjAcLmOTDwcw/formResponse" 
+          method="POST" 
+          target="hidden_iframe" 
+          id="romanForm"
+          onsubmit="submitted=true;">
+        
+        <!-- SECCIÓN 1 -->
+        <div class="seccion-tarjeta">
+            <h2>🏛️ 1. Datos de la Entidad</h2>
+            
+            <div class="form-group">
+                <label for="legion-name">Nombre de la Legión / Entidad que representan <span class="required">*</span></label>
+                <input type="text" id="legion-name" name="entry.1021534216" required placeholder="Ej: Legión Magistrados de Roma">
+            </div>
+            
+            <div class="seccion-subtitulo">Contacto Principal</div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="main-contact-name">Nombre y Apellidos <span class="required">*</span></label>
+                    <input type="text" id="main-contact-name" name="entry.1681197024" required placeholder="Nombre completo">
+                </div>
+                <div class="form-group">
+                    <label for="main-contact-phone">Teléfono <span class="required">*</span></label>
+                    <input type="tel" id="main-contact-phone" name="entry.1838737297" required placeholder="600 000 000">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="main-contact-email">Correo electrónico <span class="required">*</span></label>
+                <input type="email" id="main-contact-email" name="entry.2051869703" required placeholder="ejemplo@roma.com">
+            </div>
+
+            <div class="seccion-subtitulo">Contacto Secundario (Opcional)</div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="sec-contact-name">Nombre y Apellidos</label>
+                    <input type="text" id="sec-contact-name" name="entry.1318491183" placeholder="Nombre opcional">
+                </div>
+                <div class="form-group">
+                    <label for="sec-contact-phone">Teléfono</label>
+                    <input type="tel" id="sec-contact-phone" name="entry.570605084" placeholder="Teléfono opcional">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="sec-contact-email">Correo electrónico</label>
+                <input type="email" id="sec-contact-email" name="entry.1420744674" placeholder="Email opcional">
+            </div>
+        </div>
+
+        <!-- SECCIÓN 2 -->
+        <div class="seccion-tarjeta">
+            <h2>⚔️ 2. Participación Militar</h2>
+            <p class="descripcion-seccion">Indique las horquillas de participación de sus tropas armadas para dimensionar el espectáculo.</p>
+
+            <div class="form-group">
+                <label style="color: var(--rojo-senado);">Legionarios pertrechados (Guerreros / Militares):</label>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pertrechados-min">Mínimo de participantes:</label>
+                        <input type="number" id="pertrechados-min" name="entry.771977179" min="0" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="pertrechados-max">Máximo de participantes:</label>
+                        <input type="number" id="pertrechados-max" name="entry.2026424990" min="0" placeholder="0">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 22px;">
+                <label style="color: var(--rojo-senado);">Legionarios arqueros:</label>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="arqueros-min">Mínimo de participantes:</label>
+                        <input type="number" id="arqueros-min" name="entry.1039402089" min="0" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="arqueros-max">Máximo de participantes:</label>
+                        <input type="number" id="arqueros-max" name="entry.838845727" min="0" placeholder="0">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 24px;">
+                <label>¿Su Legión dispone de <strong>escudos</strong> para el acto? <span class="required">*</span></label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="entry.1053540530" value="Sí" id="shield-yes" required>
+                        <span class="radio-custom">🛡️ Sí</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="entry.1053540530" value="No" id="shield-no" required>
+                        <span class="radio-custom">❌ No</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div id="shield-count-container" class="collapsible-container">
+                <div class="collapsible-content">
+                    <div class="collapsible-inner">
+                        <label for="shield-count">¿Cuántos escudos pueden traer para realizar una formación conjunta? <span class="required">*</span></label>
+                        <input type="number" name="entry.1671361028" id="shield-count" min="1" placeholder="Ej: 15">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 24px;">
+                <label>¿Su Legión dispone de <strong>lanzas</strong>? <span class="required">*</span></label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="entry.512523984" value="Sí" required>
+                        <span class="radio-custom">🗡️ Sí</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="entry.512523984" value="No" required>
+                        <span class="radio-custom">❌ No</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 3 -->
+        <div class="seccion-tarjeta">
+            <h2>🛡️ 3. Participación Civil y Apoyo</h2>
+            <p class="descripcion-seccion">Destinado a personajes civiles, aspirantes, novatos o apoyo logístico.</p>
+            
+            <div class="form-group">
+                <label for="civil-count">¿Cuánta gente puede aportar en total para las diversas tareas del acto? <span class="required">*</span></label>
+                <input type="number" id="civil-count" name="entry.48551268" min="0" required placeholder="Número de personas">
+            </div>
+
+            <label style="margin-top: 22px;">Tareas a desempeñar por este grupo (bajo directrices de regiduría):</label>
+            <ul class="tasks">
+                <li>🥖 Repartir “pan y circo” (panecillos).</li>
+                <li>🌊 Participación en la naumaquia (dinámica de movimiento de telas).</li>
+                <li>🏟️ Control de accesos e indicaciones en el anillo inferior del estadio.</li>
+                <li>📦 Apoyo logístico general.</li>
+            </ul>
+        </div>
+
+        <button type="submit" id="submitBtn">
+            <span>🏛️</span> Enviar Formulario al Senado
+        </button>
+    </form>
+</div>
+
+<!-- Modal de Éxito -->
+<div class="modal-overlay" id="successModal">
+    <div class="modal-card">
+        <div class="modal-icon">🦅</div>
+        <h3 class="modal-title">¡Formulario Registrado!</h3>
+        <p class="modal-text">Tu respuesta ha sido enviada correctamente a la organización del Circo Romano Máximo 2026. ¡Gracias por tu colaboración!</p>
+        <button class="btn-modal" onclick="closeSuccessModal()">Aceptar y Finalizar</button>
+    </div>
+</div>
+
+<script>
+    var submitted = false;
+
+    // Lógica para desplegar condicionalmente la pregunta de los escudos
+    const shieldYes = document.getElementById('shield-yes');
+    const shieldNo = document.getElementById('shield-no');
+    const shieldContainer = document.getElementById('shield-count-container');
+    const shieldInput = document.getElementById('shield-count');
+
+    function toggleShieldInput() {
+        if (shieldYes.checked) {
+            shieldContainer.classList.add('open');
+            shieldInput.setAttribute('required', 'true');
+        } else {
+            shieldContainer.classList.remove('open');
+            shieldInput.removeAttribute('required');
+            shieldInput.value = '';
+        }
+        updateProgress();
+    }
+
+    shieldYes.addEventListener('change', toggleShieldInput);
+    shieldNo.addEventListener('change', toggleShieldInput);
+
+    // Barra de progreso interactiva
+    const form = document.getElementById('romanForm');
+    const progressBar = document.getElementById('progress-bar');
+    
+    function updateProgress() {
+        const requiredInputs = Array.from(form.querySelectorAll('[required]'));
+        let filledCount = 0;
+
+        // Agrupar radios requeridos por nombre
+        const radioGroups = {};
+        requiredInputs.forEach(input => {
+            if (input.type === 'radio') {
+                radioGroups[input.name] = true;
+            } else if (input.value.trim() !== '') {
+                filledCount++;
+            }
+        });
+
+        Object.keys(radioGroups).forEach(name => {
+            const checked = form.querySelector(`input[name="${name}"]:checked`);
+            if (checked) filledCount++;
+        });
+
+        // Contar el total único de campos/grupos requeridos
+        const totalFields = requiredInputs.filter(i => i.type !== 'radio').length + Object.keys(radioGroups).length;
+        const percent = Math.min(100, Math.round((filledCount / totalFields) * 100));
+        progressBar.style.width = percent + '%';
+    }
+
+    form.addEventListener('input', updateProgress);
+    form.addEventListener('change', updateProgress);
+
+    // Funciones del Modal de éxito
+    function showSuccessModal() {
+        document.getElementById('successModal').classList.add('active');
+    }
+
+    function closeSuccessModal() {
+        document.getElementById('successModal').classList.remove('active');
+        form.reset();
+        toggleShieldInput();
+        submitted = false;
+        updateProgress();
+    }
+</script>
+
+</body>
+</html>
